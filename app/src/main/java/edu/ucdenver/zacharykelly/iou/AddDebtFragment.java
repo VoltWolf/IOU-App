@@ -33,12 +33,14 @@ public class AddDebtFragment extends DialogFragment {
 
     // Variables
     String contactName;
+    boolean owesMe;
     boolean isMonetary;
     double debtAmount;
     double debtPaid;
     String debtItem;
     String description;
-    long dueDate; // IN UTC MILLIS
+    Long dueDate = null; // IN UTC MILLIS
+    boolean useDate = false;
     boolean recurring;
 
     @NonNull
@@ -53,6 +55,18 @@ public class AddDebtFragment extends DialogFragment {
         MaterialDatePicker.Builder materialDateBuilder = MaterialDatePicker.Builder.datePicker();
         materialDateBuilder.setTitleText("Select A Date");
         final MaterialDatePicker materialDatePicker = materialDateBuilder.build();
+
+        // When the owes me switch is checked
+        binding.swOwesMe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (binding.swOwesMe.isChecked()) {
+                    binding.swOwesMe.setText("Owes Me");
+                } else {
+                    binding.swOwesMe.setText("Owe Them");
+                }
+            }
+        });
 
         // When the monetary switch is checked
         binding.swMonetary.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -82,6 +96,7 @@ public class AddDebtFragment extends DialogFragment {
         materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
             @Override
             public void onPositiveButtonClick(Long selection) {
+                useDate = true;
                 binding.tvDate.setText(materialDatePicker.getHeaderText());
                 dueDate = selection;
                 Log.i("info", "Date of " + dueDate + " picked.");
@@ -100,6 +115,7 @@ public class AddDebtFragment extends DialogFragment {
 
                 // int debtId; Not needed, automatically created
                 contactName = binding.etName.getEditText().getText().toString();
+                owesMe = binding.swOwesMe.isChecked();
                 isMonetary = binding.swMonetary.isChecked();
                 description = binding.etDescription.getEditText().getText().toString();
                 recurring = binding.swRecurring.isChecked();
@@ -122,7 +138,7 @@ public class AddDebtFragment extends DialogFragment {
                         binding.etDebtAmount.setError("Debt amount cannot be blank");
                         return;
                     }
-                    debt = new Debt(contactName, true, debtAmount, null, description, dueDate, recurring);
+                    debt = new Debt(contactName, owesMe, true, debtAmount, null, description, dueDate, recurring);
                 } else {
                     // Try to find an item as a debt
                     debtItem = binding.etDebtItem.getEditText().getText().toString();
@@ -133,7 +149,7 @@ public class AddDebtFragment extends DialogFragment {
                         return;
                     }
                     // We are good, create the debt
-                    debt = new Debt(contactName, false, null, debtItem, description, dueDate, recurring);
+                    debt = new Debt(contactName, owesMe, false, null, debtItem, description, dueDate, recurring);
                 }
 
                 // Actually insert debt

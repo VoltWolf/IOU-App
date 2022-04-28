@@ -2,7 +2,6 @@
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -46,8 +45,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/swOwesMe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Owes Me"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/swMonetary"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="true"
         android:text="Money"/>
@@ -110,7 +116,7 @@
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/swRecurring"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="false"
         android:text="Recurring"/>

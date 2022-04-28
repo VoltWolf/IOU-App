@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public interface DebtDao {
 
     @Insert
     void insertAll(Debt... debt);
+
+    @Update
+    void Update(Debt debt);
 
     @Delete
     void delete(Debt debt);

@@ -2,7 +2,6 @@ package edu.ucdenver.zacharykelly.iou;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(debtAdapter);
 
         // Onclick Events:
@@ -108,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             // Add all of the elements into the list
             Log.i("info", "Loading " + tempList.size() + " debts");
             debtList.addAll(tempList);
+            debtAdapter.notifyDataSetChanged();
         }
     }
 
@@ -116,5 +115,17 @@ public class MainActivity extends AppCompatActivity {
         debtDao.insertAll(debt);
         // Reload all of the items in the list
         loadDebts();
+    }
+
+    public void removeDebt(Debt debt) {
+        debtDao.delete(debt);
+        loadDebts();
+    }
+
+    public void viewDebt(int debtToShow) {
+        Log.i("info", "Showing debt " + debtToShow);
+        ViewDebtFragment viewDebtFragment = new ViewDebtFragment();
+        viewDebtFragment.setDebt(debtList.get(debtToShow));
+        viewDebtFragment.show(getSupportFragmentManager(), "");
     }
 }

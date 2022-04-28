@@ -1,15 +1,21 @@
 package edu.ucdenver.zacharykelly.iou;
 
+import android.content.Context;
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.ColumnInfo;
 import androidx.room.PrimaryKey;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -33,17 +39,35 @@ public class DebtAdapter extends RecyclerView.Adapter <DebtAdapter.ListItemHolde
         return list.size();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void onBindViewHolder(DebtAdapter.ListItemHolder holder, int position) {
         Debt debt = list.get(position);
 
+        // Currency formatting
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        format.setMaximumFractionDigits(2);
+
         holder.tvName.setText(debt.getContactName());
         if (debt.isMonetary()) {
-            holder.tvDebt.setText(Double.toString(debt.getDebtAmount()));
+            holder.tvDebt.setText(format.format(debt.getDebtAmount()));
         } else {
             holder.tvDebt.setText(debt.getDebtItem().toString());
         }
-        // holder.tvDate.setText(Long.toString(debt.getDueDate()));
-        holder.tvDate.setText("TEST DATE");
+        if (debt.owesMe()) {
+            holder.tvDebt.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.dark_green));
+        } else {
+            holder.tvDebt.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.dark_red));
+        }
+        if (debt.getDueDate() != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(debt.getDueDate());
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            holder.tvDate.setText("Due by " + year + "-" + month + "-" + day);
+        } else {
+            holder.tvDate.setVisibility(View.GONE);
+        }
     }
 
     public class ListItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -65,7 +89,7 @@ public class DebtAdapter extends RecyclerView.Adapter <DebtAdapter.ListItemHolde
         public void onClick (View view) {
             // Onclick
             Log.i("info", "Inside onClick method");
-            // mainActivity.showDebt(getAdapterPosition());
+            mainActivity.viewDebt(getBindingAdapterPosition());
         }
     }
 }
