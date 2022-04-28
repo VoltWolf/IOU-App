@@ -49,10 +49,16 @@ public class DebtAdapter extends RecyclerView.Adapter <DebtAdapter.ListItemHolde
 
         holder.tvName.setText(debt.getContactName());
         if (debt.isMonetary()) {
-            holder.tvDebt.setText(format.format(debt.getDebtAmount()));
+            if (debt.getDebtPaid() != 0) {
+                holder.tvDebt.setText(format.format(debt.getDebtAmount()) + " - " + format.format(debt.getDebtPaid()));
+            } else {
+                holder.tvDebt.setText(format.format(debt.getDebtAmount()));
+            }
         } else {
             holder.tvDebt.setText(debt.getDebtItem().toString());
         }
+
+
         if (debt.owesMe()) {
             holder.tvDebt.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.dark_green));
         } else {

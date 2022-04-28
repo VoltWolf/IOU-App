@@ -40,7 +40,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="$100.00"
-                android:textSize="36dp"
+                android:textSize="24dp"
                 android:textColor="@color/dark_red"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />

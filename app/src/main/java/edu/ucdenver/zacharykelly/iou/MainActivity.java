@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Load all items in the list
     private void loadDebts() {
-        Log.i("info", "Reloading debts");
+        Log.i("info", "Reloading debts...");
         debtList.clear();
         List<Debt> tempList = debtDao.getAll();
         // If there are elements to display
@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             debtList.addAll(tempList);
             debtAdapter.notifyDataSetChanged();
         }
+        Log.i("info", "Reloading debts done");
     }
 
     public void addDebt (Debt debt) {
@@ -119,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void removeDebt(Debt debt) {
         debtDao.delete(debt);
+        loadDebts();
+    }
+
+    public void updateDebt(Debt debt) {
+        debtDao.Update(debt);
         loadDebts();
     }
 

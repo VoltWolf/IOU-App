@@ -10,40 +10,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import java.text.NumberFormat;
 
-import edu.ucdenver.zacharykelly.iou.databinding.FragmentViewDebtBinding;
+import edu.ucdenver.zacharykelly.iou.databinding.FragmentPayDebtBinding;
 
 
-public class ViewDebtFragment extends DialogFragment {
-    private FragmentViewDebtBinding binding;
+public class PayDebtFragment extends DialogFragment {
+    private FragmentPayDebtBinding binding;
     private Debt debt;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        binding = FragmentViewDebtBinding.inflate(LayoutInflater.from(getContext()));
+        binding = FragmentPayDebtBinding.inflate(LayoutInflater.from(getContext()));
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setView(binding.getRoot());
 
         // Currency formatting
         NumberFormat format = NumberFormat.getCurrencyInstance();
         format.setMaximumFractionDigits(2);
-
-        // Set the text views
-        if (debt.owesMe()) {
-            binding.tvName.setText(debt.getContactName() + " owes me:");
-        } else {
-            binding.tvName.setText("You owe " + debt.getContactName());
-        }
         if (debt.isMonetary()) {
             binding.tvDebt.setText(format.format(debt.getDebtAmount()));
         } else {
@@ -61,40 +51,27 @@ public class ViewDebtFragment extends DialogFragment {
             binding.tvDate.setVisibility(View.GONE);
         }
 
-        if (debt.getDebtPaid() != 0) {
-            binding.tvPaid.setText(format.format(debt.getDebtPaid()) + " paid.");
-        } else {
-            binding.tvPaid.setVisibility(View.GONE);
-        }
-
-        if (debt.isRecurring()) {
-            binding.tvDescription.setText(debt.getDescription() + " (Recurring)");
-        } else {
-            binding.tvDescription.setText(debt.getDescription());
-        }
-
         binding.btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PayDebtFragment payDebtFragment = new PayDebtFragment();
-                payDebtFragment.setDebt(debt);
-                payDebtFragment.show(getChildFragmentManager(), "");
-                dismiss();
-            }
-        });
+                double paidAmount;
+                try {
+                    paidAmount = Double.parseDouble(binding.etPayAmount.getEditText().getText().toString());
+                } catch (Exception e) {
+                    return;
+                }
 
-        // Delete the debt
-        binding.btnRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                debt.setDebtPaid(debt.getDebtPaid() + paidAmount);
+
+                // Actually insert debt
                 MainActivity mainActivity = (MainActivity) getActivity();
-                mainActivity.removeDebt(debt);
+                mainActivity.updateDebt(debt);
                 dismiss();
             }
         });
 
         // Close the debt
-        binding.btnClose.setOnClickListener(new View.OnClickListener() {
+        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
