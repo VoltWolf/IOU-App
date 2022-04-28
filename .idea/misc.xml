@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/VoltWolf/OneDrive - The University of Colorado Denver/Y4S2 CSCI 4211 Mobile Comp. &amp; Programming 001/Final Project/IOU/app/src/main/res/drawable/ic_money.xml" value="0.3635" />
         <entry key="..\:/Users/VoltWolf/OneDrive - The University of Colorado Denver/Y4S2 CSCI 4211 Mobile Comp. &amp; Programming 001/Final Project/IOU/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/VoltWolf/OneDrive - The University of Colorado Denver/Y4S2 CSCI 4211 Mobile Comp. &amp; Programming 001/Final Project/IOU/app/src/main/res/layout/debt_row.xml" value="0.3625" />
+        <entry key="..\:/Users/VoltWolf/OneDrive - The University of Colorado Denver/Y4S2 CSCI 4211 Mobile Comp. &amp; Programming 001/Final Project/IOU/app/src/main/res/layout/dialog_add_debt.xml" value="0.3625" />
+        <entry key="..\:/Users/VoltWolf/OneDrive - The University of Colorado Denver/Y4S2 CSCI 4211 Mobile Comp. &amp; Programming 001/Final Project/IOU/app/src/main/res/layout/fragment_add_debt.xml" value="0.3625" />
+        <entry key="..\:/Users/VoltWolf/OneDrive - The University of Colorado Denver/Y4S2 CSCI 4211 Mobile Comp. &amp; Programming 001/Final Project/IOU/app/src/main/res/layout/fragment_item.xml" value="0.3625" />
+        <entry key="..\:/Users/VoltWolf/OneDrive - The University of Colorado Denver/Y4S2 CSCI 4211 Mobile Comp. &amp; Programming 001/Final Project/IOU/app/src/main/res/layout/fragment_item_list.xml" value="0.3484375" />
         <entry key="..\:/Users/VoltWolf/OneDrive - The University of Colorado Denver/Y4S2 CSCI 4211 Mobile Comp. &amp; Programming 001/Final Project/IOU/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3625" />
         <entry key="..\:/Users/VoltWolf/OneDrive - The University of Colorado Denver/Y4S2 CSCI 4211 Mobile Comp. &amp; Programming 001/Final Project/IOU/app/src/main/res/menu/bottomappbar_menu.xml" value="0.3625" />
       </map>

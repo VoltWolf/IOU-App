@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Debt {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int debtId;
 
     @ColumnInfo(name = "contact_name")
@@ -16,7 +16,7 @@ public class Debt {
     public boolean isMonetary;
 
     @ColumnInfo(name = "debt_amount")
-    public double debtAmount;
+    public Double debtAmount;
 
     @ColumnInfo(name = "debt_paid")
     public double debtPaid;
@@ -34,10 +34,11 @@ public class Debt {
     public boolean recurring;
 
     // Constructor
-    public Debt(String contactName, boolean isMonetary, double debtAmount, String debtItem, String description, long dueDate, boolean recurring) {
+    public Debt(String contactName, boolean isMonetary, Double debtAmount, String debtItem, String description, long dueDate, boolean recurring) {
         this.contactName = contactName;
         this.isMonetary = isMonetary;
         this.debtAmount = debtAmount;
+        this.debtPaid = 0;
         this.debtItem = debtItem;
         this.description = description;
         this.dueDate = dueDate;
@@ -72,7 +73,7 @@ public class Debt {
     }
 
     // Debt Amount
-    public double getDebtAmount() {
+    public Double getDebtAmount() {
         return debtAmount;
     }
 

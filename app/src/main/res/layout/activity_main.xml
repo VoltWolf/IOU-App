@@ -15,7 +15,7 @@
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="20dp"
         app:fabAlignmentMode="end"
-        app:menu="@menu/bottomappbar_menu" />
+        app:menu="@menu/bottomappbar_menu"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
@@ -23,5 +23,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"
         app:layout_anchor="@id/bottomAppBar" />
+
+    <include
+        layout="@layout/adapter_debt"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

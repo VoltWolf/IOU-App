@@ -11,6 +11,8 @@
     <item
         android:id="@+id/abSettings"
         android:icon="@drawable/ic_settings"
-        android:title="Settings" />
+        android:enabled="true"
+        android:title="Settings"
+        app:showAsAction="ifRoom" />
 
 </menu>
